@@ -30,7 +30,7 @@ body {
   top: 0;
 }
 
-.container>div {
+.container > div {
   position: absolute;
   left: 0;
   right: 0;
@@ -41,7 +41,7 @@ body {
   font-size: 4.5rem;
 }
 
-.one>img {
+.one > img {
   vertical-align: middle;
   margin-bottom: 10px;
   max-width: 100%;
@@ -299,44 +299,10 @@ body {
     font-weight: lighter;
   }
 }
-
-@media screen and (max-width: 600px) {
-  .eight {
-    /* 禁用动画 */
-    animation: none;
-    visibility: visible;
-  }
-
-  .eight svg {
-    /* 确保 SVG 元素在手机端正确显示 */
-    visibility: visible;
-    width: 20px;
-    /* 调整为适合手机的大小 */
-  }
-}
-
-@media screen and (max-width: 600px) {
-
-  .idea-3 span,
-  .idea-3 strong {
-    display: block;
-    font-size: 1rem;
-    /* 调整字体大小 */
-    word-wrap: break-word;
-    /* 允许换行 */
-  }
-
-  .five .idea-3 {
-    width: 90%;
-    margin: 0 auto;
-  }
-}
-
 @keyframes rotate {
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(360deg);
   }
