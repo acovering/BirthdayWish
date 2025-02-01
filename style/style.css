@@ -30,7 +30,7 @@ body {
   top: 0;
 }
 
-.container > div {
+.container>div {
   position: absolute;
   left: 0;
   right: 0;
@@ -41,7 +41,7 @@ body {
   font-size: 4.5rem;
 }
 
-.one > img {
+.one>img {
   vertical-align: middle;
   margin-bottom: 10px;
   max-width: 100%;
@@ -299,10 +299,44 @@ body {
     font-weight: lighter;
   }
 }
+
+@media screen and (max-width: 600px) {
+
+  /* 调整整体容器 */
+  .container {
+    width: 100vw;
+    height: auto;
+    padding: 10vh 0;
+  }
+
+  /* 调整文字容器及字体尺寸 */
+  body {
+    font-size: 0.9rem;
+    padding: 0 1rem;
+  }
+
+  .one h1,
+  .two,
+  .three,
+  .five,
+  .six,
+  .seven,
+  .eight,
+  .nine {
+    padding: 0 1rem;
+  }
+
+  /* 调整文本框宽度 */
+  .four .text-box {
+    width: 90%;
+  }
+}
+
 @keyframes rotate {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
