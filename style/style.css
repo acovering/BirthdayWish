@@ -345,9 +345,36 @@ body {
     position: relative;
     /* 改为相对定位，避免溢出 */
     width: 90%;
-    margin: 1rem auto;
+    margin: 10px auto;
     left: auto;
     right: auto;
+    font-size: 1.5rem;
+  }
+
+  /* 专门针对 idea-5 的优化 */
+  .five .idea-5 {
+    position: relative;
+    font-size: 1.8rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 90%;
+  }
+
+  /* 调整 idea-5 内的 span 元素 */
+  .idea-5 span {
+    display: block;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    text-align: center;
+  }
+
+  /* 调整容器使内容可滚动 */
+  .container {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+    width: 100%;
   }
 }
 
