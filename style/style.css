@@ -378,6 +378,67 @@ body {
   }
 }
 
+/* 修复 bigTextPart1 和 bigTextPart2 在手机端居中问题 */
+@media screen and (max-width: 768px) {
+
+  /* 调整 idea-6 容器在手机端的位置 */
+  .five .idea-6 {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+  }
+
+  /* 调整 SO 文字大小和位置 */
+  .idea-6 span {
+    font-size: 8rem;
+    /* 更小的字体以适应手机 */
+    display: inline-block;
+    position: relative;
+    margin: 0 5px;
+  }
+}
+
+/* 修复气球在手机端溢出问题 */
+@media screen and (max-width: 768px) {
+
+  /* 调整气球容器 */
+  .seven {
+    overflow: visible;
+    /* 确保气球可以超出容器 */
+    z-index: 0;
+    /* 降低Z轴层级，避免遮挡其他内容 */
+  }
+
+  /* 调整气球位置，确保在视口内可见 */
+  .baloons img {
+    width: 40px;
+    /* 减小气球尺寸 */
+    height: auto;
+  }
+
+  .baloons img:nth-child(even) {
+    left: 5%;
+    /* 调整到视口内 */
+  }
+
+  .baloons img:nth-child(odd) {
+    right: 5%;
+    /* 调整到视口内 */
+  }
+
+  .baloons img:nth-child(3n + 0) {
+    left: 45%;
+    /* 居中显示部分气球 */
+  }
+}
+
 @keyframes rotate {
   from {
     transform: rotate(0deg);
