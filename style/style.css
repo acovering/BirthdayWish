@@ -30,7 +30,7 @@ body {
   top: 0;
 }
 
-.container > div {
+.container>div {
   position: absolute;
   left: 0;
   right: 0;
@@ -41,7 +41,7 @@ body {
   font-size: 4.5rem;
 }
 
-.one > img {
+.one>img {
   vertical-align: middle;
   margin-bottom: 10px;
   max-width: 100%;
@@ -299,10 +299,63 @@ body {
     font-weight: lighter;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .container {
+    width: 100vw;
+  }
+
+  /* 降低动画频率，防止闪屏 */
+  .eight svg {
+    width: 20px;
+    /* 减小SVG尺寸 */
+  }
+}
+
+/* 专门针对 .eight 的动画优化 */
+@media screen and (max-width: 768px) {
+
+  /* 预先设置可见性，减少闪烁 */
+  .eight svg {
+    visibility: visible;
+    opacity: 0.01;
+    /* 几乎不可见但已经渲染 */
+    transform: scale(0.1);
+    /* 预先缩放 */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .idea-3 {
+    width: 90%;
+    margin: 0 auto;
+    word-wrap: break-word;
+  }
+
+  .idea-3 span,
+  .idea-3 strong {
+    display: inline-block;
+    font-size: 1.5rem;
+    /* 适当减小字体大小 */
+    max-width: 100%;
+    padding: 2px;
+  }
+
+  .five p {
+    position: relative;
+    /* 改为相对定位，避免溢出 */
+    width: 90%;
+    margin: 1rem auto;
+    left: auto;
+    right: auto;
+  }
+}
+
 @keyframes rotate {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

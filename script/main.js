@@ -304,12 +304,12 @@ const animationTimeline = () => {
       1.5,
       {
         visibility: "visible",
-        opacity: 0,
-        scale: 80,
-        repeat: 3,
-        repeatDelay: 1.4
+        opacity: window.innerWidth <= 768 ? 0 : 0, // 移动端不做透明度动画
+        scale: window.innerWidth <= 768 ? 40 : 80, // 移动端降低缩放比例
+        repeat: window.innerWidth <= 768 ? 1 : 2, // 移动端减少重复次数
+        repeatDelay: window.innerWidth <= 768 ? 0.7 : 1.4 // 移动端减少延迟时间
       },
-      0.3
+      window.innerWidth <= 768 ? 0.5 : 0.3 // 移动端增加间隔时间
     )
     .to(".six", 0.5, {
       opacity: 0,
