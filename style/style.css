@@ -416,13 +416,6 @@ body {
     /* 降低Z轴层级，避免遮挡其他内容 */
   }
 
-  /* 调整气球位置，确保在视口内可见 */
-  .baloons img {
-    width: 65px;
-    /* 减小气球尺寸 */
-    height: auto;
-  }
-
   .baloons img:nth-child(even) {
     left: 5%;
     /* 调整到视口内 */
