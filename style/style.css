@@ -418,7 +418,7 @@ body {
 
   /* 调整气球位置，确保在视口内可见 */
   .baloons img {
-    width: 40px;
+    width: 65px;
     /* 减小气球尺寸 */
     height: auto;
   }
