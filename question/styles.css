@@ -14,7 +14,7 @@ body{
   height: 100vh;
   flex-direction: column;
   color:var(--heart-color);
-  background-image:url('images/mini-hearth.png');
+  background-image:url('../images/mini-hearth.png');
   background-size: 75%;
 }
 .card{
