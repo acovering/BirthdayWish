@@ -1,317 +1,246 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💗</title>
+    <meta charset="UTF-8" />
+    <title>情人节快乐</title>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            margin: 0;
-            padding: 0;
+            width: 100vw;
             height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: background-color 0.5s ease;
-            background-color: #EFEFEF;
             overflow: hidden;
-            font-family: 'Arial', sans-serif;
+            background: transparent; /* 交给 scene */
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
         }
-        
-        .timer-container {
-            text-align: center;
-            color: white;
-            font-weight: bold;
-            text-shadow: 0 0 15px rgba(255,255,255,0.7);
-            padding: 30px;
-            border-radius: 20px;
-            background-color: rgba(0,0,0,0.25);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-        
-        .time-display {
-            font-size: 5rem;
-            opacity: 0.9;
-            letter-spacing: 5px;
-            margin: 25px 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .time-unit {
-            margin: 0 15px;
-            perspective: 500px;
-            position: relative;
-            height: 7rem;
-        }
-        
-        .number-container {
-            position: relative;
-            width: 5rem;
-            height: 7rem;
-            transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .number-front, .number-back {
+
+        h1 {
+            z-index: 5;
             position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.15);
-            box-shadow: inset 0 0 15px rgba(255,255,255,0.2);
-        }
-        
-        .number-back {
-            transform: rotateX(180deg);
-            background: rgba(255,255,255,0.25);
-        }
-        
-        .unit-label {
-            font-size: 1.5rem;
-            margin-top: 15px;
-            opacity: 0.8;
-        }
-        
-        .controls {
-            position: absolute;
-            bottom: 20px;
+            top: 30px;
             width: 100%;
             text-align: center;
+            color: #fff;
+            font-size: 42px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 10;
         }
-        
-        .color-picker {
-            width: 50px;
-            height: 50px;
-            border: none;
+
+        .note {
+            z-index: 5;
+            position: absolute;
+            width: 180px;
+            padding: 14px;
+            background: #fff8a6;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            font-size: 14px;
+            color: #333;
+            transform: rotate(var(--rotate));
+            animation: float linear infinite;
             cursor: pointer;
-            border-radius: 50%;
         }
-        
-        .upload-label {
-            background: rgba(0,0,0,0.3);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 1rem;
-            display: inline-block;
-            margin: 0 10px;
-            backdrop-filter: blur(5px);
+
+        @keyframes float {
+            from { transform: translateY(110vh) rotate(var(--rotate)); }
+            to   { transform: translateY(-200px) rotate(var(--rotate)); }
         }
-        
-        #bg-upload {
+
+        .heart {
+            position: absolute;
+            color: rgba(255,255,255,0.7);
+            font-size: 20px;
+            animation: heartFloat linear infinite;
+        }
+
+        @keyframes heartFloat {
+            from { transform: translateY(110vh) scale(0.8); opacity: 0.8; }
+            to   { transform: translateY(-100px) scale(1.2); opacity: 0; }
+        }
+
+        /* 弹窗 */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
             display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background: #fff8a6;
+            padding: 30px;
+            border-radius: 12px;
+            font-size: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: pop 0.3s ease;
+        }
+
+        @keyframes pop {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* ===== 二维火车背景 ===== */
+        .scene {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(
+                    180deg,
+                    #334155 0%,
+                    #1e293b 50%,
+                    #020617 100%
+            );
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .rail {
+            position: absolute;
+            bottom: 80px;
+            width: 100%;
+            height: 4px;
+            background: #555;
+        }
+
+        .rail::after {
+            content: "";
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            height: 2px;
+            background: repeating-linear-gradient(
+                    to right,
+                    #444 0 40px,
+                    transparent 40px 80px
+            );
+        }
+
+        .train {
+            position: absolute;
+            bottom: 96px;
+            left: -300px;
+            display: flex;
+            animation: trainMove 18s linear infinite;
+        }
+
+        .car {
+            width: 120px;
+            height: 50px;
+            background: #3b82f6;
+            margin-right: 6px;
+            border-radius: 6px;
+            position: relative;
+        }
+
+        .car::before {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+            width: 16px;
+            height: 16px;
+            background: #222;
+            border-radius: 50%;
+            box-shadow: 50px 0 0 #222;
+        }
+
+        @keyframes trainMove {
+            from { transform: translateX(0); }
+            to { transform: translateX(calc(100vw + 600px)); }
         }
     </style>
 </head>
 <body>
-    <div class="timer-container">
-        <div class="time-display" id="timer">
-            <div class="time-unit">
-                <div class="number-container" id="years-num">
-                    <div class="number-front">0</div>
-                    <div class="number-back">1</div>
-                </div>
-                <div class="unit-label">年</div>
-            </div>
-            
-            <div class="time-unit">
-                <div class="number-container" id="months-num">
-                    <div class="number-front">0</div>
-                    <div class="number-back">1</div>
-                </div>
-                <div class="unit-label">月</div>
-            </div>
-            
-            <div class="time-unit">
-                <div class="number-container" id="days-num">
-                    <div class="number-front">0</div>
-                    <div class="number-back">1</div>
-                </div>
-                <div class="unit-label">天</div>
-            </div>
-            
-            <div class="time-unit">
-                <div class="number-container" id="hours-num">
-                    <div class="number-front">0</div>
-                    <div class="number-back">1</div>
-                </div>
-                <div class="unit-label">小时</div>
-            </div>
-            
-            <div class="time-unit">
-                <div class="number-container" id="minutes-num">
-                    <div class="number-front">0</div>
-                    <div class="number-back">1</div>
-                </div>
-                <div class="unit-label">分</div>
-            </div>
-            
-            <div class="time-unit">
-                <div class="number-container" id="seconds-num">
-                    <div class="number-front">0</div>
-                    <div class="number-back">1</div>
-                </div>
-                <div class="unit-label">秒</div>
-            </div>
-        </div>
+
+<div class="scene">
+    <div class="rail"></div>
+    <div class="train">
+        <div class="car"></div>
+        <div class="car"></div>
+        <div class="car"></div>
     </div>
-    
-    <div class="controls">
+</div>
 
-        <input type="color" id="colorPicker" class="color-picker" value="#FFFFFF">
+<h1>情人节快乐<br/><span style="font-size:18px;opacity:0.9;">365天，只油这一天</span></h1>
 
-        <label for="bg-upload" class="upload-label">更换图片</label>
+<audio src="music.mp3" autoplay loop></audio>
 
-        <input type="file" id="bg-upload" accept="image/*">
+<div class="modal" id="modal">
+    <div class="modal-content" id="modalText"></div>
+</div>
 
-        <select id="positionSelect" class="upload-label">
+<script>
+    const messages = [
+        "春天是倒放的秋天,晚安是爱你的续篇",
+        "月遇夜,云遇雨,而我又想遇见你",
+        "对你没有偏袒的意思,是正儿八经的偏心",
+        "情人节快乐,岁岁年年皆为你",
+        "已经偷偷幸福很久啦",
+        "你很特别,我很喜欢",
+        "愿你的梦里总有星星✨",
+        "这一张便利贴，只写给你",
+        "风路过花丛时偷了香气，我路过你时偷了心跳 🌸",
+        "月亮不睡我不睡，因为梦里要和你私会 🌙",
+        "云朵在天空写情书，我在备忘录里画爱心 ☁️",
+        "春天说它欠你一场雨，我悄悄还你一整个雨季 🌧️",
+        "星星眨了第1314次眼，我决定把晚安说成早安 ✨",
+        "钟表停在5:20，不是故障是心动 ⏰",
+        "昨天的咖啡凉了，今天的思念还滚烫 ☕",
+        "日历撕到2月14日，心跳自动调成震动模式 📅",
+        "秒针走完一圈又一圈，我的目光停在你身上没挪过 🕒",
+        "童年弄丢的玻璃珠，原来滚到了你眼睛里 🔮",
+        "超市购物车总缺个位置，刚好放你的手 🛒",
+        "手机相册第9张照片，是你侧脸偷笑的模样 📸",
+        "耳机分你一半，左耳是心跳，右耳是“我喜欢你” 🎧",
+        "奶茶第二杯半价，我喝甜的，你喝我眼里的星光 🥤",
+        "钥匙扣上挂了个小月亮，像你低头时翘起的发梢 🌙",
+        "他们说“爱”要大声说，可我对着镜子练了20遍还是结巴 💬",
+        "数学题算不出答案，但“喜欢你”是唯一解 ➗",
+        "偏心是人类的本能，而我只对你开启这项功能 ❤️",
+        "情人节特供服务：免费出租肩膀，永久收购你的笑容 🤝",
+        "警告：你的笑容已触发我的心动警报，请负责到底 ⚠️"
+    ];
 
-            <option value="center">居中</option>
+    function random(min, max) {
+        return Math.random() * (max - min) + min;
+    }
 
-            <option value="top">顶部</option>
+    // 生成便利贴
+    for (let i = 0; i < 16; i++) {
+        const note = document.createElement('div');
+        note.className = 'note';
+        note.innerText = messages[i % messages.length];
 
-            <option value="bottom">底部</option>
+        note.style.left = random(0, window.innerWidth - 200) + 'px';
+        note.style.animationDuration = random(12, 25) + 's';
+        note.style.setProperty('--rotate', random(-15, 15) + 'deg');
 
-            <option value="left top">左上</option>
-
-            <option value="right bottom">右下</option>
-
-        </select>
-
-    </div>
-
-    <script>
-        const defaultBgImage = 'https://youke1.picui.cn/s1/2025/09/25/68d52f44a0f0d.jpg'; // 示例图片
-        
-        // 应用默认背景
-        document.body.style.backgroundImage = `url(${defaultBgImage})`;
-        document.body.style.backgroundSize = 'cover';
-
-
-        
-
-
-        // 设置起始日期（示例：2020-01-01）
-        const startDate = new Date('2024-09-30 20:00:00');
-
-        
-        
-        // 数字容器元素
-        const numberContainers = {
-            years: document.getElementById('years-num'),
-            months: document.getElementById('months-num'),
-            days: document.getElementById('days-num'),
-            hours: document.getElementById('hours-num'),
-            minutes: document.getElementById('minutes-num'),
-            seconds: document.getElementById('seconds-num')
+        note.onclick = () => {
+            document.getElementById('modalText').innerText = note.innerText;
+            document.getElementById('modal').style.display = 'flex';
         };
-        
-        // 当前显示的数字
-        let currentNumbers = {
-            years: 0,
-            months: 0,
-            days: 0,
-            hours: 0,
-            minutes: 0,
-            seconds: 0
-        };
-        
-        // 更新计时器
-        function updateTimer() {
-            const now = new Date();
-            const diffMs = now - startDate;
-            const diffSec = Math.floor(diffMs / 1000);
-            
-            // 计算时间单位
-            const totalSeconds = diffSec;
-            const totalMinutes = Math.floor(totalSeconds / 60);
-            const totalHours = Math.floor(totalMinutes / 60);
-            const totalDays = Math.floor(totalHours / 24);
-            const totalMonths = Math.floor(totalDays / 30);
-            const totalYears = Math.floor(totalMonths / 12);
-            
-            const seconds = totalSeconds % 60;
-            const minutes = totalMinutes % 60;
-            const hours = totalHours % 24;
-            const days = totalDays % 30;
-            const months = totalMonths % 12;
-            const years = totalYears;
-            
-            // 更新数字显示
-            updateNumberDisplay('seconds', seconds);
-            updateNumberDisplay('minutes', minutes);
-            updateNumberDisplay('hours', hours);
-            updateNumberDisplay('days', days);
-            updateNumberDisplay('months', months);
-            updateNumberDisplay('years', years);
-            
-            // 更新当前数字
-            currentNumbers = {
-                years: years,
-                months: months,
-                days: days,
-                hours: hours,
-                minutes: minutes,
-                seconds: seconds
-            };
-        }
-        
-        // 更新数字显示（带动画）
-        function updateNumberDisplay(unit, newValue) {
-            const container = numberContainers[unit];
-            const front = container.querySelector('.number-front');
-            const back = container.querySelector('.number-back');
-            
-            // 设置过渡效果
-            container.style.transform = 'rotateX(0deg)';
-            
-            // 更新背面数字
-            back.textContent = newValue;
-            
-            // 触发翻转动画
-            setTimeout(() => {
-                container.style.transform = 'rotateX(180deg)';
-                
-                // 动画完成后更新正面数字
-                setTimeout(() => {
-                    front.textContent = newValue;
-                    container.style.transform = 'rotateX(0deg)';
-                }, 800);
-            }, 0);
-        }
-        
-        // 初始更新
-        updateTimer();
-        // 每秒更新一次
-        setInterval(updateTimer, 1000);
-        
-        // 颜色选择器
-        const colorPicker = document.getElementById('colorPicker');
-        colorPicker.addEventListener('input', function() {
-            document.body.style.backgroundColor = this.value;
-        });
-        
-        // 图片上传
-        const fileInput = document.getElementById('bg-upload');
-        fileInput.addEventListener('change', function(e) {
-            if (e.target.files && e.target.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.body.style.backgroundImage = `url(${e.target.result})`;
-                    document.body.style.backgroundSize = 'cover';
-                    document.body.style.backgroundPosition = 'center';
-                }
-                reader.readAsDataURL(e.target.files[0]);
-            }
-        });
-    </script>
+
+        document.body.appendChild(note);
+    }
+
+    // 生成爱心
+    for (let i = 0; i < 30; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerText = '❤';
+
+        heart.style.left = random(0, window.innerWidth) + 'px';
+        heart.style.fontSize = random(16, 32) + 'px';
+        heart.style.animationDuration = random(8, 18) + 's';
+
+        document.body.appendChild(heart);
+    }
+    document.getElementById('modal').onclick = () => {
+        document.getElementById('modal').style.display = 'none';
+    };
+</script>
+
 </body>
 </html>
